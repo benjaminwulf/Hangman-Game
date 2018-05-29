@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hangman Psudocode</title>
+</head>
+
+<body>
+    <h1>Hangman Psudocode</h1>
+    <ul>
+        <h2>Create and initialize beginning variables</h2>
+        <li>var generateRandomWord</li>
+        <ol>
+            <li>Create array with a dozen or more strings</li>
+            <li>Use Math.random method to choose object from array</li>
+            <li>Save that random object as var computerWord</li>
+        </ol>
+        <h2>Starting message: Press any key to get started!</h2>
+           <li>var wins = 0 //display to screen</li>
+           <li>var losses = 0 //display to screen</li>
+           <li>Message in html reading: Current word. (ie currentWord)</li>
+        <h2>Display current word by replaceing letters with "-"</h2>
+        <ol>
+            <li>user .lenth method to measure lenth of word</li>
+            <li>create a new array named maskedWord</li>
+            <li>display the entine masked word array to screen</li>
+        </ol>
+        <h2>Message: number of guesses remaining</h2>
+        <ol>
+            <li>create variable named guessesRemaining</li>
+            <li>set guessesRemaining to 13</li>
+            <li>use document.querySelector to display to screen</li>
+        </ol>
+        <h2>Create array named lettersAlreadyGuessed</h2>
+        <li>initialize with null</li>
+        <li>Use event method to start the game my getting keypress</li>
+        <h2>onKeyPressdown save input as userKeyPressDown</h2>
+            <li>save onKeyPressDown</li>
+            <li>subtract one from guessesRemaining and save and display</li>
+            <li>use .push array method to change array lettersAlreadyGuessed</li>
+            <li>Use if else statement to measure for equality</li>
+            <ul>
+                <li>If userKeyPressDown == index[i] of currentWord using iteration</li>
+                <li>change array maskedWord where index[i] matches and display and .push on lettersAlreadyGuessed and display</li>
+                  <ul>
+                      <ul>If userKeyPressDown == any letter in array
+                          <li>Do not push on array lettersAlreadyGuessed</li>
+                          <li>Message: Already guessed letter. Please try again.</li>
+                      </ul>
+                  </ul>
+            </ul>
+        <h2>Conditional to determine and diplay winner</h2>
+          <li>Use switch statement</li>
+          <li>Iterate userKeyPressDown thru generatedRandomWord</li>
+          <li>When case maskedWord == generatedRandomWord</li>
+            <ul>
+                <li>wins++</li>
+                <li>Display winner and reset game</li>
+            </ul>
+            <li>When case !== and guessesRemaining > 0</li>
+            <ul>
+                <li>GuessesRemaining deceases by one</li>
+                <li>Continue to accept input from userKeyPressDown</li>
+            </ul>            
+            <li>gessesRemaining == 0</li>
+              <ul>
+                <li>loses++</li>
+                <li>Message: You just loss</li>  
+                <li>Reset game</li>
+              </ul>
+    </ul>
+
+</body>
+
+</html>
