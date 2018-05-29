@@ -90,15 +90,22 @@ dash[12] = "- "
 
 console.log(dash);
 
-function BuildArray(numberOfLetters){
-    this.length = numberOfLetters
-    for (var i = 1; i <= numberOfLetters; i++){
-    this[i] = null}
-    return this;
-};
+// var dashWord = [];
+var dashLength = (dash.length)*1;
+var dashWord = Array.from(new Array(dashLength), (x, i) => i);
+
+// var dashWord = dash.apply.(null, dash(dash.length));
+// function dash(numberOfLetters){
+//     this.length = numberOfLetters
+//     for (var i = 1; i <= numberOfLetters; i++){
+//     this[i] = null}
+//     return this;
+// };
 
 
 // DISPLAY DASHES // wip
+console.log(dashLength);
+console.log(dashWord);
 document.querySelector("#dash-replace").innerHTML = dash.length;
 
 // GAME RESET //wip
