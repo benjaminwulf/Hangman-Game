@@ -88,25 +88,24 @@ dash[10] = "- "
 dash[11] = "- "
 dash[12] = "- "
 
-console.log(dash);
+console.log("Dash: " + dash);
 
-// var dashWord = [];
-var dashLength = (dash.length)*1;
-var dashWord = Array.from(new Array(dashLength), (x, i) => i);
+//
+//  HELP PLEASE
+//
 
-// var dashWord = dash.apply.(null, dash(dash.length));
-// function dash(numberOfLetters){
-//     this.length = numberOfLetters
-//     for (var i = 1; i <= numberOfLetters; i++){
-//     this[i] = null}
-//     return this;
-// };
+// BEGIN CLEAN VERSION OF ARRAY ITERATION //duplicate or immediate above code snippet
+dashLetter = dash[0, dash.length - 1];
+// console.log("dashLetter: " + dashArray);
+console.log("numberOfLetters: " + numberOfLetters)
 
+    // DISPLAY DASHES 
+    for (i = 0; i <= numberOfLetters - 1; i++) {
+        dashLetter += i + " "
+    }
+    console.log(dashLetter[0], dashLetter.length - 1);
+// END CLEAN VERSION OF ARRAY ITERATION
 
-// DISPLAY DASHES // wip
-console.log(dashLength);
-console.log(dashWord);
-document.querySelector("#dash-replace").innerHTML = dash.length;
 
 // GAME RESET //wip
 // var resetGame = function () {
