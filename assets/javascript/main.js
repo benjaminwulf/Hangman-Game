@@ -60,8 +60,9 @@ var rnd = Math.ceil(Math.random() * NumberOfWords);
 alert(words[rnd]);
 currentWord = words[rnd];
 };
+
 pickRandomWord();
-console.log(currentWord);
+console.log(currentWord); //bww
 
 // END FUNCTION TO GENERATE RANDOM WORD TO VARIABLE
 
@@ -69,41 +70,64 @@ console.log(currentWord);
 var wins = 0;
 var losses = 0;
 
-// CONVERT numberOfLetters to dashWord displayed with "-"
-var numberOfLetters = currentWord.length.toString();
+//================================= HELP ==================================================
+s = currentWord;
+for (var i = 0; i < currentWord.length; i++) {
+    console.log(currentWord.charAt(i));
+}
 
-// BUILD NEW ARRAY WITH UP TO 12 ELEMENTS FOR EACH LETTER IN numberOfLetters
-var dash = new BuildArray(numberOfLetters);
+var wordObject = "{}" // NEED EACH CHARACTER INTO OBJECT
 
-dash[1] = "- "
-dash[2] = "- "
-dash[3] = "- "
-dash[4] = "- "
-dash[5] = "- "
-dash[6] = "- "
-dash[7] = "- "
-dash[8] = "- "
-dash[9] = "- "
-dash[10] = "- "
-dash[11] = "- "
-dash[12] = "- "
+// TURN EACH CHARACTER INTO AN OBJECT
 
-console.log("Dash: " + dash);
+var string = "{firstName:'name1', lastName:'last1'}";
+eval('var obj=' + string);
+alert(obj.firstName);
 
+eval("var obj=" + currentWord);
+alert(obj.firstName);
+
+//================================= HELP ==================================================
+
+// This function builds the display of the word that is currently being guessed.
+  // For example, if we are trying to guess "blondie", it might display "bl_ndi_".
+function rebuildWordView() {
+    // We start with an empty string.
+    var wordView = "";
+
+    // Loop through the letters of the word we are trying to guess..
+    for (var i = 0; i < this.currentWord.length; i++) {
+      // If the current letter has been guessed, display that letter.
+      if (this.s.indexOf(this.currentWord[i]) !== -1) { //bww need to create matchedLetters
+        wordView += this.currentWord[i];
+      }
+      // If it hasn't been guessed, display a "_" instead.
+      else {
+        wordView += "&nbsp;_&nbsp;";
+      }
+    }
+    // Update the page with the new string we built.
+    document.querySelector("#word-view").innerHTML = wordView; //bww need to add id="current-word"
+    // console.log("Word view: " + wordView);
+};
+
+  console.log("rebuildWordView: " + rebuildWordView());
+
+// ==================================================================================
 //
 //  HELP PLEASE
 //
 
 // BEGIN CLEAN VERSION OF ARRAY ITERATION //duplicate or immediate above code snippet
-dashLetter = dash[0, dash.length - 1];
+// dashLetter = dash[0, dash.length - 1];
 // console.log("dashLetter: " + dashArray);
-console.log("numberOfLetters: " + numberOfLetters)
+// console.log("numberOfLetters: " + numberOfLetters)
 
     // DISPLAY DASHES 
-    for (i = 0; i <= numberOfLetters - 1; i++) {
-        dashLetter += i + " "
-    }
-    console.log(dashLetter[0], dashLetter.length - 1);
+    // for (i = 0; i <= numberOfLetters - 1; i++) {
+        // dashLetter += i + " "
+    // }
+    // console.log(dashLetter[0], dashLetter.length - 1);
 // END CLEAN VERSION OF ARRAY ITERATION
 
 
