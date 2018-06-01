@@ -4,12 +4,14 @@ var currentWord;
 var guessesRemaining = 13;
 var guessesSoFar = [];
 var blanks = [];
-var userGuess;
+var found = false
+var foundCount = 0  // NOT DISPLAYED CURRENTLY
 
 // BEGIN FUNCTION TO GENERATE RANDOM WORD TO VARIABLE
-var NumberOfWords = 36
+var NumberOfWords = 35
 var words = new BuildArray(NumberOfWords)
 
+words[0] = "swing"
 words[1] = "birdie"
 words[2] = "par"
 words[3] = "bogey"
@@ -45,7 +47,6 @@ words[32] = "iron"
 words[33] = "putter"
 words[34] = "ball"
 words[35] = "chip"
-words[36] = "swing"
 
 function BuildArray(size){
 this.length = size
@@ -68,93 +69,67 @@ console.log(currentWord); //bww
 
 // END FUNCTION TO GENERATE RANDOM WORD TO VARIABLE
 
-//================================= HELP ==================================================
+// TURN currentWord INTO ARRAY
+wordArr = currentWord.split("");
+console.log("wordArr is equal to: " + wordArr);
+
+// CREATE ARR WITH DASHES WHERE EACH LETTER IS IN wordArr
 for (var i = 0; i < currentWord.length; i++) {
     blanks.push("-");
 }
-console.log(blanks);
+console.log("blanks is equal to: " + blanks);
+document.querySelector("#word-view").innerHTML = blanks;
+
+//============== THIS FUNCTION WILL CONTAIN REST OF CODE ===============
 
 // GET keyPressUp AND SET TO VARIABLE
-document.onkeydown = function (event) {
-    var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-    console.log("User just guessed: " + userGuess);
+document.onkeyup = function(event) {
+    var userKeyPress = String.fromCharCode(event.keyCode).toLowerCase();
+    console.log("userKeyPress inside function: " + userKeyPress);
 
-    guessesSoFar.push(userGuess + " ");
-    document.querySelector("#guesses-so-far").innerHTML = guessesSoFar
-
-    // Countdown on guessesRemaining
+    guessesSoFar.push(userKeyPress + " ");
+      if (guessesSoFar.includes(userKeyPress)) {
+          alert("Please press a key not already pressed!"); //bww not working
+      } else {
+        document.querySelector("#guesses-so-far").innerHTML = guessesSoFar
+      }
+    
+    // countdown on guessesRemaining and if < 0, end game, chng win/loss and reset game
     guessesRemaining--;
-    document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
-}
-// loop thru currentWord and see if it is equal to  
+      if (guessesRemaining < 1) {
+          losses++;
+          document.querySelector("#guesses-remaining").innerHTML = "Game Over... Head to the 19th Hole!"
+          document.querySelector("#losses").innerHTML = losses;
+          // reset game here
+        //
+        //
+        } else {
+        document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
+        }
 
-// var wordObject = "{}" // NEED EACH CHARACTER INTO OBJECT
+    // LOOP THRU EACH LETTER OF ARRAY wordArr
+    for(var i = 0; i < wordArr.length; ++i) {
+        // CHECK FOR EQUALITY BTW userKeyPress AND LETTERS BEING LOOPED THRU
+        if (userKeyPress === wordArr[i]) {
+            // PUT MATCH IN NEW ARRAY
+            wordArr[i].textContent = userKeyPress; //bww need help
+            // CREATE BOOLEAN NAMED FOUND TO EQUAL TO TRUE SIGNIFYING A MATCH AND VAR NAMED FOUNDCOUNT INCREASE BY ONE 
+            found = true;
+            foundCount++;
+            // IF ALL LETTERS MATCHED, DISPLAY WINNER
+        if (foundCount === wordArr.length){
+            wins++;
+            document.querySelector("#wins");
+            //============== ADD BLANKS ARR REPLACEMENT WITH LETTER===========
+            // REFERENCE LINE 80ISH
 
-
-
-// TURN EACH CHARACTER INTO AN OBJECT
-// var wordObject = {};
-
-// for (var i = 0; i < s.length; i++) {
-//     wordObject["key" + i];
-// }
-// console.log(wordObject);
-
-
-// eval('var obj=' + string);
-// alert(obj.firstName);
-
-// eval("var obj=" + currentWord);
-// alert(obj.firstName);
-
-//================================= HELP ==================================================
-
-// This function builds the display of the word that is currently being guessed.
-  // For example, if we are trying to guess "blondie", it might display "bl_ndi_".
-// function rebuildWordView() {
-//     // We start with an empty string.
-//     var wordView = "";
-
-//     // Loop through the letters of the word we are trying to guess..
-//     for (var i = 0; i < this.currentWord.length; i++) {
-//       // If the current letter has been guessed, display that letter.
-//       if (this.s.indexOf(this.currentWord[i]) !== -1) { //bww need to create matchedLetters
-//         wordView += this.currentWord[i];
-//       }
-//       // If it hasn't been guessed, display a "_" instead.
-//       else {
-//         wordView += "&nbsp;_&nbsp;";
-//       }
-//     }
-//     // Update the page with the new string we built.
-//     document.querySelector("#word-view").innerHTML = wordView; //bww need to add id="current-word"
-//     // console.log("Word view: " + wordView);
-// };
-
-//   console.log("rebuildWordView: " + rebuildWordView());
-
-// ==================================================================================
-//
-//  HELP PLEASE
-//
-
-// BEGIN CLEAN VERSION OF ARRAY ITERATION //duplicate or immediate above code snippet
-// dashLetter = dash[0, dash.length - 1];
-// console.log("dashLetter: " + dashArray);
-// console.log("numberOfLetters: " + numberOfLetters)
-
-    // DISPLAY DASHES 
-    // for (i = 0; i <= numberOfLetters - 1; i++) {
-        // dashLetter += i + " "
-    // }
-    // console.log(dashLetter[0], dashLetter.length - 1);
-// END CLEAN VERSION OF ARRAY ITERATION
-
-
-// GAME RESET //wip
-// var resetGame = function () {
-//   document.querySelector(wins());
-//   document.querySelector(losses());
-  
-// return resetGame();
-// };
+            //===============================================================
+        // IF NONE MATCH REPLACE 
+        } if (!found) {
+            guessesSoFar.innerHTML = guessesSoFar.innerHTML + userKeyPress;
+            }
+        
+        }
+    }
+};
+//============== END THIS FUNCTION WILL CONTAIN REST OF CODE ===============
