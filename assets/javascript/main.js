@@ -3,6 +3,8 @@ var losses = 0;
 var currentWord;
 var guessesRemaining = 13;
 var guessesSoFar = [];
+var blanks = [];
+var userGuess;
 
 // BEGIN FUNCTION TO GENERATE RANDOM WORD TO VARIABLE
 var NumberOfWords = 36
@@ -66,52 +68,70 @@ console.log(currentWord); //bww
 
 // END FUNCTION TO GENERATE RANDOM WORD TO VARIABLE
 
-// GENERATE AND DISPLAY BEGINNING VARIABLES
-var wins = 0;
-var losses = 0;
-
 //================================= HELP ==================================================
-s = currentWord;
 for (var i = 0; i < currentWord.length; i++) {
-    console.log(currentWord.charAt(i));
+    blanks.push("-");
 }
+console.log(blanks);
 
-var wordObject = "{}" // NEED EACH CHARACTER INTO OBJECT
+// GET keyPressUp AND SET TO VARIABLE
+document.onkeydown = function (event) {
+    var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+    console.log("User just guessed: " + userGuess);
+
+    guessesSoFar.push(userGuess + " ");
+    document.querySelector("#guesses-so-far").innerHTML = guessesSoFar
+
+    // Countdown on guessesRemaining
+    guessesRemaining--;
+    document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
+}
+// loop thru currentWord and see if it is equal to  
+
+// var wordObject = "{}" // NEED EACH CHARACTER INTO OBJECT
+
+
 
 // TURN EACH CHARACTER INTO AN OBJECT
+// var wordObject = {};
 
-var string = "{firstName:'name1', lastName:'last1'}";
-eval('var obj=' + string);
-alert(obj.firstName);
+// for (var i = 0; i < s.length; i++) {
+//     wordObject["key" + i];
+// }
+// console.log(wordObject);
 
-eval("var obj=" + currentWord);
-alert(obj.firstName);
+
+// eval('var obj=' + string);
+// alert(obj.firstName);
+
+// eval("var obj=" + currentWord);
+// alert(obj.firstName);
 
 //================================= HELP ==================================================
 
 // This function builds the display of the word that is currently being guessed.
   // For example, if we are trying to guess "blondie", it might display "bl_ndi_".
-function rebuildWordView() {
-    // We start with an empty string.
-    var wordView = "";
+// function rebuildWordView() {
+//     // We start with an empty string.
+//     var wordView = "";
 
-    // Loop through the letters of the word we are trying to guess..
-    for (var i = 0; i < this.currentWord.length; i++) {
-      // If the current letter has been guessed, display that letter.
-      if (this.s.indexOf(this.currentWord[i]) !== -1) { //bww need to create matchedLetters
-        wordView += this.currentWord[i];
-      }
-      // If it hasn't been guessed, display a "_" instead.
-      else {
-        wordView += "&nbsp;_&nbsp;";
-      }
-    }
-    // Update the page with the new string we built.
-    document.querySelector("#word-view").innerHTML = wordView; //bww need to add id="current-word"
-    // console.log("Word view: " + wordView);
-};
+//     // Loop through the letters of the word we are trying to guess..
+//     for (var i = 0; i < this.currentWord.length; i++) {
+//       // If the current letter has been guessed, display that letter.
+//       if (this.s.indexOf(this.currentWord[i]) !== -1) { //bww need to create matchedLetters
+//         wordView += this.currentWord[i];
+//       }
+//       // If it hasn't been guessed, display a "_" instead.
+//       else {
+//         wordView += "&nbsp;_&nbsp;";
+//       }
+//     }
+//     // Update the page with the new string we built.
+//     document.querySelector("#word-view").innerHTML = wordView; //bww need to add id="current-word"
+//     // console.log("Word view: " + wordView);
+// };
 
-  console.log("rebuildWordView: " + rebuildWordView());
+//   console.log("rebuildWordView: " + rebuildWordView());
 
 // ==================================================================================
 //
