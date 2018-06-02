@@ -4,8 +4,6 @@ var currentWord;
 var guessesRemaining = 13;
 var guessesSoFar = [];
 var blankArr = [];
-var found = false;
-var foundCount = 0;  // NOT DISPLAYED CURRENTLY
 
 // // DISPLAY BEGINING VARIABLES
 // document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
@@ -16,7 +14,6 @@ function resetGame() {
     guessesRemaining = 13;
     guessesSoFar = [];
     bankArr = [];
-    found = false;
 };
 
 // BEGIN FUNCTION TO GENERATE RANDOM WORD TO VARIABLE
@@ -60,67 +57,74 @@ words[33] = "putter"
 words[34] = "ball"
 words[35] = "chip"
 
-function BuildArray(size){
-this.length = size
-for (var i = 1; i <= size; i++){
-this[i] = null}
-return this;
+function BuildArray(size) {
+    this.length = size
+    for (var i = 1; i <= size; i++) {
+        this[i] = null
+    }
+    return this;
 };
 
 function pickRandomWord() {
-// Generate a random number between 1 and NumberOfWords
-var rnd = Math.ceil(Math.random() * NumberOfWords);
+    // Generate a random number between 1 and NumberOfWords
+    var rnd = Math.ceil(Math.random() * NumberOfWords);
 
-// Display the word inside the text box
-alert(words[rnd]);
-currentWord = words[rnd];
+    // Display the word inside the text box
+    alert(words[rnd]);
+    currentWord = words[rnd];
 };
 
 pickRandomWord();
-console.log(currentWord); //bww
-
-// END FUNCTION TO GENERATE RANDOM WORD TO VARIABLE
+console.log(currentWord);
 
 // TURN currentWord INTO ARRAY
 wordArr = currentWord.split("");
 console.log("wordArr is equal to: " + wordArr);
 
-// CREATE ARR WITH DASHES WHERE EACH LETTER IS IN wordArr
-for (var i = 0; i < currentWord.length; i++) {
-    blankArr.push("-");
+// CREATE blankArr
+for (var i = 0; i < wordArr.length; i++) {
+    blankArr.push("_ ");
 }
-console.log("blankArr is equal to: " + blankArr);
-document.querySelector("#blanks").innerHTML = blankArr;
 
-//============== THIS FUNCTION WILL CONTAIN REST OF CODE ===============
+//============== GET KEY PPRESS AND DO STUFF ===================================
+
 
 // GET keyPressUp AND SET TO VARIABLE
-document.onkeyup = function(event) {
+document.onkeyup = function (event) {
     var userKeyPress = String.fromCharCode(event.keyCode).toLowerCase();
     console.log("userKeyPress inside function: " + userKeyPress);
 
-    guessesSoFar.push(userKeyPress + " ");
-      if (guessesSoFar.includes(userKeyPress)) {
-          alert("Please press a key not already pressed!"); //bww not working
-      } else {
-        document.querySelector("#guesses-so-far").innerHTML = guessesSoFar
-      }
-    
-    // countdown on guessesRemaining and if < 0, end game, chng win/loss and reset game
-    if (guessesRemaining <= 13) {
-          guessesRemaining--;
-          document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
-      } else if (guessesRemaining < 1) {
-          losses++;
-          document.querySelector("#losses").innerHTML = losses;
-          document.querySelector("#guesses-remaining").innerHTML = "Game Over... Head to the 19th Hole!"
-        } else {
-        document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
-        }
-     
-    // bww
-    for (var i = 0; i < wordArr.length; i++) {
-        userKeyPress === wordArr[i] ? blankArr[i] = userKeyPress : document.querySelector("#blanks").innerHTML = blankArr;
-    }
-};
 
+    // countdown on guessesRemaining and if < 0, end game, chng win/loss and reset game
+    if (guessesRemaining < 1) {
+        losses++;
+        document.querySelector("#losses").innerHTML = losses;
+        document.querySelector("#guesses-remaining").innerHTML = "Game Over... Head to the 19th Hole!"
+    } else if (guessesRemaining <= 13) {
+        guessesRemaining--;
+        document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
+    } else {
+        document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
+    }
+
+    // CHANGE guessesSoFar
+    guessesSoFar.push(userKeyPress + " ");
+    if (guessesSoFar.includes(userKeyPress)) {
+        alert("Please press a key not already pressed!"); //bww not working
+    } else {
+        document.querySelector("#guesses-so-far").innerHTML = guessesSoFar
+    }
+
+    // Substituting userKeyPress for underscore array item in blankArr
+    for (var i = 0; i < wordArr.length; i++) {
+        if (userKeyPress === wordArr[i]) {
+            blankArr[i] = userKeyPress;
+            document.querySelector("#blanks").innerHTML = blankArr;
+        }
+    }
+
+    // EXTRA CREDIT
+    // for (var i = 0; i < wordArr.length; i++) {
+    //     userKeyPress === wordArr[i] ? blankArr[i] = userKeyPress : document.querySelector("#blanks").innerHTML = blankArr;
+    // }
+};
