@@ -12,7 +12,7 @@ var foundCount = 0;  // NOT DISPLAYED CURRENTLY
 // document.querySelector("#guesses-so-far").innerHTML = guessesSoFar;
 
 // resetGame FUNCTION
-var resetGame = function () {
+function resetGame() {
     guessesRemaining = 13;
     guessesSoFar = [];
     bankArr = [];
@@ -90,7 +90,7 @@ for (var i = 0; i < currentWord.length; i++) {
     blankArr.push("-");
 }
 console.log("blankArr is equal to: " + blankArr);
-document.querySelector("#word-view").innerHTML = blankArr;
+document.querySelector("#blanks").innerHTML = blankArr;
 
 //============== THIS FUNCTION WILL CONTAIN REST OF CODE ===============
 
@@ -107,42 +107,20 @@ document.onkeyup = function(event) {
       }
     
     // countdown on guessesRemaining and if < 0, end game, chng win/loss and reset game
-      if (guessesRemaining <= 13) {
+    if (guessesRemaining <= 13) {
           guessesRemaining--;
           document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
-      }
-
-      if (guessesRemaining < 1) {
+      } else if (guessesRemaining < 1) {
           losses++;
-          document.querySelector("#guesses-remaining").innerHTML = "Game Over... Head to the 19th Hole!"
           document.querySelector("#losses").innerHTML = losses;
+          document.querySelector("#guesses-remaining").innerHTML = "Game Over... Head to the 19th Hole!"
         } else {
         document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
         }
-
-    // LOOP THRU EACH LETTER OF ARRAY wordArr
-    for(var i = 0; i < wordArr.length; ++i) {
-        // CHECK FOR EQUALITY BTW userKeyPress AND LETTERS BEING LOOPED THRU
-        if (userKeyPress === wordArr[i]) {
-            // PUT MATCH IN NEW ARRAY
-            wordArr[i].textContent = userKeyPress; //bww need help
-            // CREATE BOOLEAN NAMED FOUND TO EQUAL TO TRUE SIGNIFYING A MATCH AND VAR NAMED FOUNDCOUNT INCREASE BY ONE 
-            found = true;
-            foundCount++;
-            // IF ALL LETTERS MATCHED, DISPLAY WINNER
-        if (foundCount === wordArr.length){
-            wins++;
-            document.querySelector("#wins");
-            //======= ADD blankArr ARR REPLACEMENT WITH LETTER===========
-            // REFERENCE LINE 80ISH
-
-            //===========================================================
-        // IF NONE MATCH REPLACE 
-        } if (!found) {
-            guessesSoFar.innerHTML = guessesSoFar.innerHTML + userKeyPress;
-            }
-        
-        }
+     
+    // bww
+    for (var i = 0; i < wordArr.length; i++) {
+        userKeyPress === wordArr[i] ? blankArr[i] = userKeyPress : document.querySelector("#blanks").innerHTML = blankArr;
     }
 };
-//=========== END THIS FUNCTION WILL CONTAIN REST OF CODE ===============
+
