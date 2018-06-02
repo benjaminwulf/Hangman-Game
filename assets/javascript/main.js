@@ -3,9 +3,21 @@ var losses = 0;
 var currentWord;
 var guessesRemaining = 13;
 var guessesSoFar = [];
-var blanks = [];
-var found = false
-var foundCount = 0  // NOT DISPLAYED CURRENTLY
+var blankArr = [];
+var found = false;
+var foundCount = 0;  // NOT DISPLAYED CURRENTLY
+
+// // DISPLAY BEGINING VARIABLES
+// document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
+// document.querySelector("#guesses-so-far").innerHTML = guessesSoFar;
+
+// resetGame FUNCTION
+var resetGame = function () {
+    guessesRemaining = 13;
+    guessesSoFar = [];
+    bankArr = [];
+    found = false;
+};
 
 // BEGIN FUNCTION TO GENERATE RANDOM WORD TO VARIABLE
 var NumberOfWords = 35
@@ -75,10 +87,10 @@ console.log("wordArr is equal to: " + wordArr);
 
 // CREATE ARR WITH DASHES WHERE EACH LETTER IS IN wordArr
 for (var i = 0; i < currentWord.length; i++) {
-    blanks.push("-");
+    blankArr.push("-");
 }
-console.log("blanks is equal to: " + blanks);
-document.querySelector("#word-view").innerHTML = blanks;
+console.log("blankArr is equal to: " + blankArr);
+document.querySelector("#word-view").innerHTML = blankArr;
 
 //============== THIS FUNCTION WILL CONTAIN REST OF CODE ===============
 
@@ -95,14 +107,15 @@ document.onkeyup = function(event) {
       }
     
     // countdown on guessesRemaining and if < 0, end game, chng win/loss and reset game
-    guessesRemaining--;
+      if (guessesRemaining <= 13) {
+          guessesRemaining--;
+          document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
+      }
+
       if (guessesRemaining < 1) {
           losses++;
           document.querySelector("#guesses-remaining").innerHTML = "Game Over... Head to the 19th Hole!"
           document.querySelector("#losses").innerHTML = losses;
-          // reset game here
-        //
-        //
         } else {
         document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
         }
@@ -120,10 +133,10 @@ document.onkeyup = function(event) {
         if (foundCount === wordArr.length){
             wins++;
             document.querySelector("#wins");
-            //============== ADD BLANKS ARR REPLACEMENT WITH LETTER===========
+            //======= ADD blankArr ARR REPLACEMENT WITH LETTER===========
             // REFERENCE LINE 80ISH
 
-            //===============================================================
+            //===========================================================
         // IF NONE MATCH REPLACE 
         } if (!found) {
             guessesSoFar.innerHTML = guessesSoFar.innerHTML + userKeyPress;
@@ -132,4 +145,4 @@ document.onkeyup = function(event) {
         }
     }
 };
-//============== END THIS FUNCTION WILL CONTAIN REST OF CODE ===============
+//=========== END THIS FUNCTION WILL CONTAIN REST OF CODE ===============
