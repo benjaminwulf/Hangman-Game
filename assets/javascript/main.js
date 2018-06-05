@@ -1,130 +1,151 @@
+// Here we are creating initial global variables
 var wins = 0;
 var losses = 0;
-var currentWord;
 var guessesRemaining = 13;
 var guessesSoFar = [];
+var currentWord;
+var wordArr = [];
 var blankArr = [];
+var userKeyPress;
 
-// // DISPLAY BEGINING VARIABLES
-// document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
-// document.querySelector("#guesses-so-far").innerHTML = guessesSoFar;
+// Here we are creating an array containing 36 golf themed words
+words = [
+ "swing",
+ "birdie",
+ "par",
+ "bogey",
+ "fairway",
+ "green",
+ "tee",
+ "bunker",
+ "hole",
+ "flagstick",
+ "fore",
+ "rough",
+ "yardage",
+ "divot",
+ "eagle",
+ "fringe",
+ "hazard",
+ "ace",
+ "albatross",
+ "dogleg",
+ "drop",
+ "lie",
+ "over",
+ "penalty",
+ "trajectory",
+ "under",
+ "caddy",
+ "mulligan",
+ "range",
+ "starter",
+ "cart",
+ "driver",
+ "iron",
+ "putter",
+ "ball",
+ "chip",
+]
 
-// resetGame FUNCTION
-function resetGame() {
-    guessesRemaining = 13;
-    guessesSoFar = [];
-    bankArr = [];
-};
+//======= INITIAL STATE ======
+fetchCurrentWordFunc();
+wordArrFunc();
+blankArrFunc();
 
-// BEGIN FUNCTION TO GENERATE RANDOM WORD TO VARIABLE
-var NumberOfWords = 35
-var words = new BuildArray(NumberOfWords)
+//===========================================================
 
-words[0] = "swing"
-words[1] = "birdie"
-words[2] = "par"
-words[3] = "bogey"
-words[4] = "fairway"
-words[5] = "green"
-words[6] = "tee"
-words[7] = "bunker"
-words[8] = "hole"
-words[9] = "flagstick"
-words[10] = "fore"
-words[11] = "rough"
-words[12] = "yardage"
-words[13] = "divot"
-words[14] = "eagle"
-words[15] = "fringe"
-words[16] = "hazard"
-words[17] = "ace"
-words[18] = "albatross"
-words[19] = "dogleg"
-words[20] = "drop"
-words[21] = "lie"
-words[22] = "over"
-words[23] = "penalty"
-words[24] = "trajectory"
-words[25] = "under"
-words[26] = "caddy"
-words[27] = "mulligan"
-words[28] = "range"
-words[29] = "starter"
-words[30] = "cart"
-words[31] = "driver"
-words[32] = "iron"
-words[33] = "putter"
-words[34] = "ball"
-words[35] = "chip"
+//====== FUNCTIONS ======
 
-function BuildArray(size) {
-    this.length = size
-    for (var i = 1; i <= size; i++) {
-        this[i] = null
-    }
-    return this;
-};
-
-function pickRandomWord() {
-    // Generate a random number between 1 and NumberOfWords
-    var rnd = Math.ceil(Math.random() * NumberOfWords);
-
-    // Display the word inside the text box
-    alert(words[rnd]);
+// Here we are going to use Math.Random to get random word from words array and set to variable
+function fetchCurrentWordFunc() {
+// Generate a random number between 1 and NumberOfWords
+    var rnd = Math.ceil(Math.random() * 36);
     currentWord = words[rnd];
 };
 
-pickRandomWord();
-console.log(currentWord);
+//====== RESTART GAME FUNCTION =======
 
-// TURN currentWord INTO ARRAY
-wordArr = currentWord.split("");
-console.log("wordArr is equal to: " + wordArr);
+function resetGame() {
+    guessesRemaining = 13;
+    guessesSoFar = [];
+    wordArr = []
+    blankArr = [];
+    fetchCurrentWordFunc();
+    wordArrFunc();
+    blankArrFunc();
+    document.querySelector("#winner-message").innerHTML = " ";
+    document.querySelector("#loser-message").innerHTML = " ";
+    document.querySelector("#try-again-message").innerHTM = " ";
+};
 
-// CREATE blankArr
-for (var i = 0; i < wordArr.length; i++) {
-    blankArr.push("_ ");
-}
+//====== START FUNCTIONS TO BE CALLED LATER =======
 
-//============== GET KEY PPRESS AND DO STUFF ===================================
+// wordArrFunc takes currentWord and splits into array deliminated on ""
+function wordArrFunc() { 
+    wordArr = currentWord.split("");
+};
 
+// Here we create an array with same length as wordArr with substituted "_ " for each letter character
+function blankArrFunc() {
+    for (var i = 0; i < wordArr.length; i++) {
+        blankArr.push("_ ");
+    }
+};
 
-// GET keyPressUp AND SET TO VARIABLE
-document.onkeyup = function (event) {
-    var userKeyPress = String.fromCharCode(event.keyCode).toLowerCase();
-    console.log("userKeyPress inside function: " + userKeyPress);
+// ====== POSSIBLY REMOVE ======
+// Match for equality and change counter on wins and display winnerMessage 
+// function checkForWinFunc() {
+//     if (wordArr === blankArr) {
+//         wins++;
+//         document.querySelector("#winner-message").innerHTML = "WINNER";
+//         resetGame();
+//     } else {
+//         document.querySelector("#try-again-message").innerHTML = "TRY AGAIN";
+//     }
+// };
 
-
-    // countdown on guessesRemaining and if < 0, end game, chng win/loss and reset game
-    if (guessesRemaining < 1) {
+// Here we are creating guessesRemainingFunc and if < 0, end game, chng win/loss and reset game
+function winLossCalcFunc() {
+    if (wordArr === blankArr) {
+        wins++;
+        document.querySelector("#winner-message").innerHTML = wins;
+        resetGame();
+    } if (guessesRemaining < 1) {
         losses++;
         document.querySelector("#losses").innerHTML = losses;
-        document.querySelector("#guesses-remaining").innerHTML = "Game Over... Head to the 19th Hole!"
+        resetGame();
     } else if (guessesRemaining <= 13) {
         guessesRemaining--;
         document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
-    } else {
-        document.querySelector("#guesses-remaining").innerHTML = guessesRemaining;
     }
+};
 
-    // CHANGE guessesSoFar
+// Here we are creating guessesSoFarFunc
+function guessesSoFarFunc() {
     guessesSoFar.push(userKeyPress + " ");
-    if (guessesSoFar.includes(userKeyPress)) {
-        alert("Please press a key not already pressed!"); //bww not working
-    } else {
-        document.querySelector("#guesses-so-far").innerHTML = guessesSoFar
-    }
+    document.querySelector("#guesses-so-far").innerHTML = guessesSoFar;
+};
 
-    // Substituting userKeyPress for underscore array item in blankArr
+// Here we use turnary operator to compare wordArr to blankArr bases on key press
+function compareArrFunc() {
     for (var i = 0; i < wordArr.length; i++) {
-        if (userKeyPress === wordArr[i]) {
-            blankArr[i] = userKeyPress;
-            document.querySelector("#blanks").innerHTML = blankArr;
-        }
+        userKeyPress === wordArr[i] ? blankArr[i] = userKeyPress : document.querySelector("#blanks").innerHTML = blankArr;
     }
+};
 
-    // EXTRA CREDIT
-    // for (var i = 0; i < wordArr.length; i++) {
-    //     userKeyPress === wordArr[i] ? blankArr[i] = userKeyPress : document.querySelector("#blanks").innerHTML = blankArr;
-    // }
+// ==========================================================
+// Here a key press initiates the game
+
+// Then initiate the function for capturing key clicks.
+document.onkeyup = function(event) {
+    // Converts all key clicks to lowercase letters.
+    userKeyPress = String.fromCharCode(event.which).toLowerCase();
+
+    // Adjust the counter for guesses remaining
+    winLossCalcFunc();
+    // Adds to guessesSoFar array and displays the key presses in HTML
+    guessesSoFarFunc();
+    // Runs the code to check for correctness.
+    compareArrFunc();
 };

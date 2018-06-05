@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en-us">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/css/reset.css">
         <link rel="stylesheet" href="assets/css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
       <br>
@@ -20,8 +18,16 @@
         <h2>Wins: </h2><h2 id="wins"></h2>
         <h2>Losses: </h2><h2 id="losses"></h2>
         <h2>Word View: </h2><h2 id="blanks"></h2>
-        <h2>Guesses Remaining: </h2> <h2 id="guesses-remaining"></h2>
+        <h2>Guesses Remaining: </h2><h2 id="guesses-remaining"></h2>
         <h2>Guesses So Far: </h2><h2 id="guesses-so-far"></h2>
+
+        <h2 id="winner-message"></h2>
+        <h2 id="loser-message"></h2>
+        <h2 id="try-again-message"></h2>
+
+        <div class="input-group mb-3">
+            <input id="form-input-js" type="text" class="form-control"  value="" aria-describedby="basic-addon1">
+        </div>
 
         <script src="assets/javascript/main.js"></script>
 
