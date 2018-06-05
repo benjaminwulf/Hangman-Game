@@ -1,35 +1,67 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Golfing Hangman</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="assets/css/reset.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    </head>
-    <body>
-      <br>
-        <h1>Welcome to Golfing Hangman!</h1>
-        <h2>Press any key to begin.</h2>
-      <br>
-        <h2>Wins: </h2><h2 id="wins"></h2>
-        <h2>Losses: </h2><h2 id="losses"></h2>
-        <h2>Word View: </h2><h2 id="blanks"></h2>
-        <h2>Guesses Remaining: </h2><h2 id="guesses-remaining"></h2>
-        <h2>Guesses So Far: </h2><h2 id="guesses-so-far"></h2>
 
-        <h2 id="winner-message"></h2>
-        <h2 id="loser-message"></h2>
-        <h2 id="try-again-message"></h2>
+<head>
+    <meta charset="utf-8">
+    <title>Golfing Hangman</title>
 
-        <div class="input-group mb-3">
-            <input id="form-input-js" type="text" class="form-control"  value="" aria-describedby="basic-addon1">
+    <link rel="stylesheet" href="assets/css/reset.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Golfing Hangman!</h1>
+                <h4>Press any key to begin.</h4>
+                <h4>Or use text box.</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <input id="form-input-js" type="text" class="form-control" value="" aria-describedby="basic-addon1">
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div style="background-color: #33af67" style="font: #fff">
+                <h4>Wins: </h4>
+                <h4 id="wins"></h4>
+                </div>
+                <div style="background-color: #ec3b46" style="font: #fff">
+                <h4>Losses: </h4>
+                <h4 id="losses"></h4>
+                </div>
+                <div style="background-color: #fef04d" style="font: #fff">
+                <h4>Word View: </h4>
+                </div>
+                <h2 id="blanks"></h2>
+                <h4>Guesses Remaining: </h4>
+                <h2 id="guesses-remaining"></h2>
+                <h4>Guesses So Far: </h4>
+                <h6 id="guesses-so-far"></h6>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 id="winner-message"></h2>
+                    <h2 id="loser-message"></h2>
+                    <h2 id="try-again-message"></h2>
+                </div>
+            </div>
         </div>
 
         <script src="assets/javascript/main.js"></script>
 
-    </body>
+</body>
+
 </html>
