@@ -107,11 +107,15 @@ function blankArrFunc() {
 
 // Here we are creating guessesRemainingFunc and if < 0, end game, chng win/loss and reset game
 function winLossCalcFunc() {
-    if (wordArr === blankArr) {
+    var i = wordArr.join();
+    var j = blankArr.join();
+    console.log("i: " + i);
+    console.log("j: " + j);
+    if (i === j) {
         wins++;
-        document.querySelector("#winner-message").innerHTML = wins;
+        document.querySelector("#wins").innerHTML = wins;
         resetGame();
-    } if (guessesRemaining < 1) {
+    } else if (guessesRemaining < 1) {
         losses++;
         document.querySelector("#losses").innerHTML = losses;
         resetGame();
@@ -141,11 +145,13 @@ function compareArrFunc() {
 document.onkeyup = function(event) {
     // Converts all key clicks to lowercase letters.
     userKeyPress = String.fromCharCode(event.which).toLowerCase();
+    
+    // Runs the code to check for correctness.
+    compareArrFunc();
+
+    // Adds to guessesSoFar array and displays the key presses in HTML
+    guessesSoFarFunc();
 
     // Adjust the counter for guesses remaining
     winLossCalcFunc();
-    // Adds to guessesSoFar array and displays the key presses in HTML
-    guessesSoFarFunc();
-    // Runs the code to check for correctness.
-    compareArrFunc();
 };
